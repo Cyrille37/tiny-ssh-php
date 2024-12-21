@@ -20,8 +20,9 @@ final class SshCommand
 
     /**
      * The output of the command.
+     * @var string|false 
      */
-    private string|false $output;
+    private $output;
 
     /**
      * The error output of the command.
@@ -30,8 +31,9 @@ final class SshCommand
 
     /**
      * The exit status of the command.
+     * @var string|false 
      */
-    private int|false $exitStatus;
+    private $exitStatus;
 
     /**
      * Constructs a new instance of the SshCommand class.
@@ -69,7 +71,7 @@ final class SshCommand
      *
      * @return bool|string The raw output, or false if no output was captured.
      */
-    public function getRawOutput(): string|false
+    public function getRawOutput()
     {
         return $this->output;
     }
@@ -102,16 +104,18 @@ final class SshCommand
 
     /**
      * Returns the exit status of the command.
+     * @return int|false
      */
-    public function getExitStatus(): int|false
+    public function getExitStatus()
     {
         return $this->exitStatus;
     }
 
     /**
      * Check if the exit status of the command matches the given status.
+     * @param int|false $status
      */
-    public function isExitStatus(int|false $status): bool
+    public function isExitStatus($status): bool
     {
         return $this->exitStatus === $status;
     }

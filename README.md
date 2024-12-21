@@ -11,6 +11,11 @@ Install the package via composer:
 composer require sandeshjangam/tiny-ssh-php
 ```
 
+## Requirements
+
+- Php >= 7.4
+- phpseclib ^3.0
+
 ## Usage
 
 Simple SSH command using password authentication:

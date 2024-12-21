@@ -13,7 +13,7 @@ final class Ssh extends SshBase
     /**
      * The SSH2 connection object.
      */
-    private SSH2 $ssh;
+    private ?SSH2 $ssh = null;
 
     /**
      * Connects to the remote server using the configured details.
@@ -32,6 +32,10 @@ final class Ssh extends SshBase
 
         if ($this->timeout) {
             $this->ssh->setTimeout($this->timeout);
+        }
+
+        if ($this->keepAlive) {
+            $this->ssh->setKeepAlive($this->keepAlive);
         }
 
         $this->connected = true;
@@ -57,14 +61,10 @@ final class Ssh extends SshBase
     /**
      * Execute a command
      *
+     * @param string|array $command $command
      * @throws RuntimeException
      */
-    /**
-     * Execute a command
-     *
-     * @throws RuntimeException
-     */
-    public function execute(string|array $command): SshCommand
+    public function execute($command): SshCommand
     {
         if (! $this->connected) {
             throw new RuntimeException('Could not execute command. ' . self::ERROR_NOT_CONNECTED);
@@ -87,6 +87,20 @@ final class Ssh extends SshBase
         }
 
         return $this->ssh->getServerPublicHostKey();
+    }
+
+    /**
+     * Set Keep Alive. Default to no keep alive.
+     *
+     * @param int $interval
+     */
+    public function keepAlive($interval): self
+    {
+        $this->keepAlive = $interval;
+        if ($this->ssh) {
+            $this->ssh->setKeepAlive($this->keepAlive);
+        }
+        return $this ;
     }
 
     /**

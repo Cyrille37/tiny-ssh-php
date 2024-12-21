@@ -14,7 +14,7 @@ final class Sftp extends SshBase
     /**
      * The SSH2 connection object.
      */
-    private SFTP2 $sftp;
+    private ?SFTP2 $sftp;
 
     /**
      * Connects to the remote server using the configured details.
@@ -33,6 +33,10 @@ final class Sftp extends SshBase
 
         if ($this->timeout) {
             $this->sftp->setTimeout($this->timeout);
+        }
+
+        if ($this->keepAlive) {
+            $this->sftp->setKeepAlive($this->keepAlive);
         }
 
         $this->connected = true;
@@ -97,6 +101,20 @@ final class Sftp extends SshBase
         }
 
         return $this->sftp->getServerPublicHostKey();
+    }
+
+    /**
+     * Set Keep Alive. Default to no keep alive.
+     *
+     * @param int $interval
+     */
+    public function keepAlive($interval): self
+    {
+        $this->keepAlive = $interval;
+        if ($this->sftp) {
+            $this->sftp->setKeepAlive($this->keepAlive);
+        }
+        return $this ;
     }
 
     /**

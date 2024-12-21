@@ -13,15 +13,19 @@
         {
             "name": "Sandesh Jangam",
             "email": "sandesh2643@gmail.com"
+        },
+        {
+            "name": "Jordan Hall",
+            "email": "jordan@hall05.co.uk"
         }
     ],
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.4",
         "phpseclib/phpseclib": "^3.0"
     },
     "require-dev": {
-        "nunomaduro/phpinsights": "^2.11",
-        "pestphp/pest": "^2.35"
+        "nunomaduro/phpinsights": "*",
+        "pestphp/pest": "*"
     },
     "config": {
         "allow-plugins": {

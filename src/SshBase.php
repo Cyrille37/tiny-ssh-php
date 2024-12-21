@@ -47,6 +47,11 @@ abstract class SshBase
     protected int $timeout = 10;
 
     /**
+     * The Keep Alive Interval in seconds for the SSH connection. Defaults to 10.
+     */
+    protected int $keepAlive = 10;
+
+    /**
      * Whether the SSH connection has been established.
      */
     protected bool $connected = false;
@@ -140,6 +145,7 @@ abstract class SshBase
         return $this;
     }
 
+
     /**
      * Returns true if the connection is established, false otherwise.
      */
@@ -157,6 +163,8 @@ abstract class SshBase
      * Disconnects from the remote server.
      */
     abstract public function disconnect(): void;
+
+    abstract public function keepAlive($interval): self;
 
     /**
      * Validates the connection arguments.
